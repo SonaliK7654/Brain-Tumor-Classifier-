@@ -1,0 +1,65 @@
+body {
+    background: linear-gradient(to right, #e0eafc, #cfdef3);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    padding: 50px;
+    margin: 0;
+}
+
+.container {
+    background: #ffffff;
+    padding: 40px 30px;
+    border-radius: 15px;
+    display: inline-block;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 18px 35px rgba(0, 0, 0, 0.2);
+}
+
+input[type="file"] {
+    margin: 25px 0;
+    padding: 10px;
+    border: 2px dashed #0066cc;
+    border-radius: 8px;
+    background-color: #f0f8ff;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+input[type="file"]:hover {
+    background-color: #e6f2ff;
+}
+
+button {
+    padding: 12px 25px;
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #004999;
+    transform: scale(1.05);
+}
+
+a {
+    display: inline-block;
+    margin-top: 25px;
+    text-decoration: none;
+    color: #0066cc;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: #004999;
+    text-decoration: underline;
+}
