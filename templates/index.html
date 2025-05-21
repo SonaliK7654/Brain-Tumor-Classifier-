@@ -1,20 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Brain Tumor Detection</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Brain Tumor Detection</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
 </head>
 <body>
-    <div class="container">
-        <h1>Brain Tumor MRI Classifier</h1>
-        <form action="/" method="post" enctype="multipart/form-data">
-            <input type="file" name="image" id="fileInput" required>
-            <br>
-            <img id="preview" src="#" alt="Image Preview" style="display: none; max-width: 200px; margin: 10px auto;">
-            <br>
-            <button type="submit">Predict</button>
-        </form>
-    </div>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <div class="container">
+    <h1 class="title">Brain Tumor MRI Classifier</h1>
+    <form action="/" method="post" enctype="multipart/form-data" class="form">
+      <input
+        type="file"
+        name="image"
+        id="fileInput"
+        required
+        class="file-input"
+        accept="image/png, image/jpeg"
+      />
+      <img
+        id="preview"
+        src="#"
+        alt="Image Preview"
+        class="image-preview hidden"
+      />
+      <button type="submit" class="btn-submit">Predict</button>
+    </form>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

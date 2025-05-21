@@ -5,10 +5,12 @@ from PIL import Image
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout, Activation
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.callbacks import EarlyStopping
-from tensorflow.keras.utils import normalize
+from sklearn.metrics import confusion_matrix, classification_report
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 # Paths
 data_dir = 'Training/'
@@ -25,7 +27,7 @@ for idx, cls in enumerate(classes):
         if img_name.endswith('.jpg'):
             img_path = os.path.join(cls_folder, img_name)
             image = cv2.imread(img_path)
-            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)  
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
             image = Image.fromarray(image).resize((INPUT_SIZE, INPUT_SIZE))
             dataset.append(np.array(image))
             labels.append(idx)
@@ -36,7 +38,7 @@ labels = np.array(labels)
 # Normalize images
 dataset = dataset / 255.0
 
-# Split
+# Split into train and test
 x_train, x_test, y_train, y_test = train_test_split(dataset, labels, test_size=0.2, random_state=42)
 
 # One-hot encode labels
@@ -53,7 +55,7 @@ datagen = ImageDataGenerator(
 )
 datagen.fit(x_train)
 
-#-------------- Model Architecture--------------
+# Model Architecture
 model = Sequential()
 
 model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(INPUT_SIZE, INPUT_SIZE, 3)))
@@ -77,12 +79,36 @@ model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accur
 early_stop = EarlyStopping(patience=5, restore_best_weights=True)
 
 # Training
-model.fit(
+history = model.fit(
     datagen.flow(x_train, y_train, batch_size=32),
     validation_data=(x_test, y_test),
     epochs=50,
     callbacks=[early_stop]
 )
+
+# Evaluate model on test set
+loss, accuracy = model.evaluate(x_test, y_test)
+print(f"Test Loss: {loss:.4f}")
+print(f"Test Accuracy: {accuracy * 100:.2f}%")
+
+# Predict classes on test set
+y_pred = model.predict(x_test)
+y_pred_classes = np.argmax(y_pred, axis=1)
+y_true = np.argmax(y_test, axis=1)
+
+# Confusion matrix
+cm = confusion_matrix(y_true, y_pred_classes)
+
+plt.figure(figsize=(6, 4))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=classes, yticklabels=classes)
+plt.xlabel('Predicted Label')
+plt.ylabel('True Label')
+plt.title('Confusion Matrix')
+plt.show()
+
+# Classification report
+print("Classification Report:")
+print(classification_report(y_true, y_pred_classes, target_names=classes))
 
 # Save model
 model.save('BrainTumor4ClassModel.h5')
