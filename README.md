@@ -101,6 +101,5 @@ training/ and testing/: Image datasets for model training and testing.
 # Contributing
 Feel free to fork this repository and submit pull requests for improvements or fixes.
 
-# License
-Specify your license here (e.g., MIT License).
+
 
