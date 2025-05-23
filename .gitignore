@@ -1,0 +1,32 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Python virtual environment
+venv/
+env/
+
+# IDE files
+.vscode/
+.idea/
+
+# MacOS files
+.DS_Store
+
+# Logs and databases
+*.log
+*.sqlite3
+
+# Uploaded images folder (optional: if you don't want to push user uploads)
+uploads/
+
+# Model checkpoints / saved models (optional if you want to keep locally)
+*.h5
+
+# Other unwanted files
+*.pyc
+*.pyo
